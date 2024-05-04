@@ -24,6 +24,7 @@ SegDisplay display(SegType::Anode,
                    PIN_E, PIN_F, PIN_G, PIN_P);
 
 int counter = -100;
+uint32_t time = 0;
 
 void setup() {
   display.begin();
@@ -32,7 +33,10 @@ void setup() {
 
 void loop() {
   display.doUpdate();
-  delay(1000);
+  if(time > millis()) {
+    return;
+  }
+  time = millis() + 500L;
   if(counter >= 100) { //show error if counter >= 100
     display.writeDigit(0, SEG_CHAR_E);
     display.writeDigit(1, SEG_CHAR_SMALL_R);
