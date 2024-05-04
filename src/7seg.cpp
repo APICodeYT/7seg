@@ -40,9 +40,10 @@ void seg7::convertFormatNumberToData(int value, uint8_t *digit_buf, uint8_t digi
     if(value <= 0) {
       if(negative) {
         digit_buf[index] = SEG_CHAR_MINUS;
-        return;
+        negative = false;
+        continue;
       }
-      digit_buf[index] = SEG_EMPTY;
+      digit_buf[index] = d == digit_count ? SEG_DIGIT_0 : SEG_EMPTY;
       continue;
     }
     uint8_t data = convertDigitToData(value % 10);
